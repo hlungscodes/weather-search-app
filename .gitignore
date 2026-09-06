@@ -1,3 +1,9 @@
-#windows settings
+# Windows settings
 Thumbs.db
 Desktop.ini
+
+# Environment variables
+.env
+
+# Dependencies
+node_modules/
