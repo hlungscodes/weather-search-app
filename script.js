@@ -17,5 +17,10 @@ submitForm.addEventListener("submit", (event) => {
 });
 
 function getWeather(city) {
+  if (city.trim() === "") {
+    console.log("Please enter a city name.");
+    return;
+  }
+
   console.log(city);
 }
