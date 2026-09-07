@@ -28,7 +28,7 @@ async function getWeather(city) {
 
   const data = await response.json();
 
-  cityName.textContent = data.name;
+  cityName.textContent = data.name + " | " + data.sys.country;
 
   temperature.textContent = Math.round(data.main.temp) + "℃";
 
