@@ -27,7 +27,13 @@ app.get("/api/weather", (req, res) => {
     });
   }
 
-  console.log("API key loaded successfully.");
+  const url =
+    `https://api.openweathermap.org/data/2.5/weather` +
+    `?q=${encodeURIComponent(city)}` +
+    `&appid=${apiKey}` +
+    `&units=metric`;
+
+  console.log("Weather URL created.");
 
   res.json({
     message: "Weather route is working.",
