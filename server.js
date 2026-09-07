@@ -37,6 +37,12 @@ app.get("/api/weather", async (req, res) => {
 
   const data = await response.json();
 
+  if (!response.ok) {
+    return res.status(response.status).json({
+      error: data.message || "Unable to get weather data."
+    });
+  }
+
   console.log(data);
 
   res.json(data);
