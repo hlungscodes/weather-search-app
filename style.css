@@ -112,3 +112,92 @@ body {
   color: rgb(30, 132, 158);
   font-weight: bold;
 }
+
+.weather-container {
+  display: none;
+}
+.pop-up {
+  color: white;
+  text-align: left;
+  font-size: 11px;
+
+  font-weight: bold;
+
+  border-radius: 0px 0px 12px 12px;
+  text-align: center;
+  background-color: black;
+}
+.con {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+}
+.warning-image {
+  color: white;
+  width: 25px;
+  margin-right: 5px;
+}
+.shake {
+  animation: shake 0.9s ease;
+}
+.h1 {
+  font-size: 70px;
+  color: white;
+}
+
+.loader {
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  border: 10px solid rgb(255, 255, 255);
+  border-top: 10px solid rgb(0, 0, 0);
+  border-radius: 50%;
+  animation: spin 0.5s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(10px);
+  }
+  20% {
+    transform: translateX(-10px);
+  }
+  30% {
+    transform: translateX(10px);
+  }
+  40% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  70% {
+    transform: translateX(5px);
+  }
+  80% {
+    transform: translateX(-5px);
+  }
+  90% {
+    transform: translateX(5px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
