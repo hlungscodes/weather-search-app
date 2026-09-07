@@ -22,8 +22,10 @@ app.get("/api/weather", async (req, res) => {
   const apiKey = process.env.OPENWEATHER_API_KEY;
 
   if (!apiKey) {
+    console.error("OpenWeather API key is missing.");
+    
     return res.status(500).json({
-      error: "OpenWeather API key is missing."
+      error: "Weather service is not configured."
     });
   }
 
@@ -33,19 +35,26 @@ app.get("/api/weather", async (req, res) => {
     `&appid=${apiKey}` +
     `&units=metric`;
 
-  const response = await fetch(url);
+  try {
+    const response = await fetch(url);
 
-  const data = await response.json();
+    const data = await response.json();
 
-  if (!response.ok) {
-    return res.status(response.status).json({
-      error: data.message || "Unable to get weather data."
+    if (!response.ok) {
+      return res.status(response.status).json({
+        error: data.message || "Unable to get weather data."
+      });
+    }
+
+    res.json(data);
+
+  } catch (error) {
+    console.error("Weather request failed:", error);
+
+    res.status(500).json({
+      error: "Unable to connect to the weather service."
     });
   }
-
-  console.log(data);
-
-  res.json(data);
 });
 
 app.listen(PORT, () => {
