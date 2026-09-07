@@ -28,5 +28,5 @@ async function getWeather(city) {
 
   const data = await response.json();
 
-  console.log(data);
+  cityName.textContent = data.name;
 }
