@@ -19,39 +19,54 @@ submitForm.addEventListener("submit", (event) => {
 
 async function getWeather(city) {
   if (city.trim() === "") {
-    console.log("Please enter a city name.");
+    errorMessage.textContent = "Please enter a city name.";
     return;
   }
 
-  const response = await fetch(
-    `/api/weather?city=${encodeURIComponent(city)}`
-  );
+  errorMessage.textContent = "";
 
-  const data = await response.json();
+  try {
+    const response = await fetch(
+      `/api/weather?city=${encodeURIComponent(city)}`
+    );
 
-  cityName.textContent = data.name + " | " + data.sys.country;
+    const data = await response.json();
 
-  temperature.textContent = Math.round(data.main.temp) + "℃";
+    if (!response.ok) {
+      errorMessage.textContent = data.error;
+      return;
+    }
 
-  descriptionWeather.textContent = data.weather[0].main;
+    cityName.textContent = data.name + " | " + data.sys.country;
 
-  windSpeed.textContent = Math.round(data.wind.speed * 3.6) + " km/h";
+    temperature.textContent = Math.round(data.main.temp) + "℃";
 
-  percent.textContent = data.main.humidity + "%";
+    descriptionWeather.textContent = data.weather[0].main;
 
-  if (data.weather[0].main === "Clear") {
-    images.src = "icon/clear.png";
-  } else if (data.weather[0].main === "Clouds") {
-    images.src = "icon/clouds.png";
-  } else if (data.weather[0].main === "Rain") {
-    images.src = "icon/rain.png";
-  } else if (data.weather[0].main === "Snow") {
-    images.src = "icon/snow.png";
-  } else if (data.weather[0].main === "Mist") {
-    images.src = "icon/mist.png";
-  } else if (data.weather[0].main === "Drizzle") {
-    images.src = "icon/drizzle.png";
-  } else {
-    images.src = "icon/confused.png";
+    windSpeed.textContent = Math.round(data.wind.speed * 3.6) + " km/h";
+
+    percent.textContent = data.main.humidity + "%";
+
+    if (data.weather[0].main === "Clear") {
+      images.src = "icon/clear.png";
+    } else if (data.weather[0].main === "Clouds") {
+      images.src = "icon/clouds.png";
+    } else if (data.weather[0].main === "Rain") {
+      images.src = "icon/rain.png";
+    } else if (data.weather[0].main === "Snow") {
+      images.src = "icon/snow.png";
+    } else if (data.weather[0].main === "Mist") {
+      images.src = "icon/mist.png";
+    } else if (data.weather[0].main === "Drizzle") {
+      images.src = "icon/drizzle.png";
+    } else {
+      images.src = "icon/confused.png";
+    }
+
+  } catch (error) {
+    errorMessage.textContent =
+      "Unable to connect to the weather service.";
+    
+    console.error(error);
   }
 }
