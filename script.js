@@ -4,7 +4,6 @@ const cityName = document.querySelector(".city");
 const windSpeed = document.querySelector(".speed");
 const percent = document.querySelector(".percent");
 const descriptionWeather = document.querySelector(".weather-descrip");
-
 const popUpText = document.querySelector(".pop-up");
 const weatherContainer = document.querySelector(".weather-container");
 const warningImg = document.querySelector(".warning-image");
@@ -16,7 +15,6 @@ const card = document.querySelector(".card");
 const typeSpace = document.querySelector(".searchSpace");
 const searchBtn = document.querySelector(".searchBtn");
 
-
 async function getWeather(city) {
   if (city.trim() === "") {
     shake("Search box empty. Please enter city name and try again.");
@@ -27,7 +25,7 @@ async function getWeather(city) {
 
   try {
     const response = await fetch(
-      `/api/weather?city=${encodeURIComponent(city)}`
+      `/api/weather?city=${encodeURIComponent(city)}`,
     );
 
     const data = await response.json();
@@ -48,38 +46,26 @@ async function getWeather(city) {
     weatherContainer.style.display = "block";
 
     temperature.textContent = Math.round(data.main.temp) + "℃";
-
     cityName.textContent = data.name + " | " + data.sys.country;
-
     descriptionWeather.textContent = data.weather[0].main;
-
-    windSpeed.textContent = data.wind.speed + " km/h";
-
+    windSpeed.textContent = Math.round(data.wind.speed * 3.6) + " km/h";
     percent.textContent = data.main.humidity + "%";
-
 
     if (data.weather[0].main === "Drizzle") {
       images.src = "icon/drizzle.png";
-
     } else if (data.weather[0].main === "Clouds") {
       images.src = "icon/clouds.png";
-
     } else if (data.weather[0].main === "Rain") {
       images.src = "icon/rain.png";
-
     } else if (data.weather[0].main === "Clear") {
       images.src = "icon/clear.png";
-
     } else if (data.weather[0].main === "Snow") {
       images.src = "icon/snow.png";
-
     } else if (data.weather[0].main === "Mist") {
       images.src = "icon/mist.png";
-
     } else {
       images.src = "icon/confused.png";
     }
-
   } catch (error) {
     loadingAlert.style.display = "none";
     searchHide.style.display = "flex";
@@ -90,7 +76,6 @@ async function getWeather(city) {
   }
 }
 
-
 submitForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -100,7 +85,6 @@ submitForm.addEventListener("submit", (event) => {
 
   typeSpace.value = "";
 });
-
 
 function shake(massege) {
   [popUpText, warningImg].forEach((element) => {
@@ -116,7 +100,6 @@ function shake(massege) {
   document.querySelector(".card").style.paddingBottom = "40px";
 
   popUpText.style.display = "block";
-
   warningImg.style.display = "block";
 
   popUpText.textContent = massege;
@@ -126,17 +109,11 @@ function shake(massege) {
   card.style.display = "block";
 }
 
-
 function loadingActive() {
   loadingAlert.style.display = "block";
-
   searchHide.style.display = "none";
-
   weatherContainer.style.display = "none";
-
   popUpText.style.display = "none";
-
   warningImg.style.display = "none";
-
   card.style.display = "none";
 }
