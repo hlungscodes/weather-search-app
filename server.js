@@ -35,12 +35,11 @@ app.get("/api/weather", async (req, res) => {
 
   const response = await fetch(url);
 
-  console.log("OpenWeather response received.");
+  const data = await response.json();
 
-  res.json({
-    message: "Weather route is working.",
-    city: city
-  });
+  console.log(data);
+
+  res.json(data);
 });
 
 app.listen(PORT, () => {
