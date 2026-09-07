@@ -22,5 +22,11 @@ async function getWeather(city) {
     return;
   }
 
-  console.log(city);
+  const response = await fetch(
+    `/api/weather?city=${encodeURIComponent(city)}`
+  );
+
+  const data = await response.json();
+
+  console.log(data);
 }
