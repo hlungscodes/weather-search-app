@@ -29,4 +29,10 @@ async function getWeather(city) {
   const data = await response.json();
 
   cityName.textContent = data.name;
+
+  temperature.textContent = Math.round(data.main.temp) + "℃";
+
+  descriptionWeather.textContent = data.weather[0].main;
+
+  windSpeed.textContent = Math.round(data.wind.speed * 3.6) + " km/h";
 }
