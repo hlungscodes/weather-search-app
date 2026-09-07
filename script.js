@@ -7,6 +7,7 @@ const descriptionWeather = document.querySelector(".weather-descrip");
 const typeSpace = document.querySelector(".searchSpace");
 const searchBtn = document.querySelector(".searchBtn");
 const submitForm = document.querySelector(".submit-form");
+const errorMessage = document.querySelector(".error-message");
 
 submitForm.addEventListener("submit", (event) => {
   event.preventDefault();
