@@ -10,7 +10,7 @@ const PORT = 3000;
 
 app.use(express.static(path.join(__dirname, ".")));
 
-app.get("/api/weather", (req, res) => {
+app.get("/api/weather", async (req, res) => {
   const city = req.query.city;
 
   if (!city || city.trim() === "") {
@@ -33,7 +33,9 @@ app.get("/api/weather", (req, res) => {
     `&appid=${apiKey}` +
     `&units=metric`;
 
-  console.log("Weather URL created.");
+  const response = await fetch(url);
+
+  console.log("OpenWeather response received.");
 
   res.json({
     message: "Weather route is working.",
