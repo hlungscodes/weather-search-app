@@ -25,7 +25,7 @@ async function getWeather(city) {
 
   try {
     const response = await fetch(
-      `/api/weather?city=${encodeURIComponent(city)}`,
+      `/api/weather?city=${encodeURIComponent(city)}`
     );
 
     const data = await response.json();
@@ -37,6 +37,8 @@ async function getWeather(city) {
       shake(data.error || "Unable to get weather information.");
       return;
     }
+
+    localStorage.setItem("lastSearch", city);
 
     card.style.display = "block";
     searchHide.style.display = "flex";
@@ -66,6 +68,7 @@ async function getWeather(city) {
     } else {
       images.src = "icon/confused.png";
     }
+
   } catch (error) {
     loadingAlert.style.display = "none";
     searchHide.style.display = "flex";
@@ -116,4 +119,10 @@ function loadingActive() {
   popUpText.style.display = "none";
   warningImg.style.display = "none";
   card.style.display = "none";
+}
+
+const lastCity = localStorage.getItem("lastSearch");
+
+if (lastCity !== null) {
+  getWeather(lastCity);
 }
