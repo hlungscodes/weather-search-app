@@ -11,7 +11,7 @@ const PORT =process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, ".")));
 
 app.get("/api/weather", async (req, res) => {
-  const city = req.query.city;
+  const city = req.query.city?.trim();
 
   if (!city || city.trim() === "") {
     return res.status(400).json({

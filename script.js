@@ -82,7 +82,7 @@ async function getWeather(city) {
 submitForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const city = typeSpace.value;
+  const city = typeSpace.value.trim();
 
   getWeather(city);
 
